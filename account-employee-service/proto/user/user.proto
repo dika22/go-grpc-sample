@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package User;
+
+// set go_package to relative path of module
+option go_package="/proto/user";
+import "google/protobuf/empty.proto";
+
+message User {
+    string id=1;
+    string nama =2;
+    string alamat=3;
+    int64 kodePos=4;
+    string provinsi=5;
+    string kantor=6;
+    string createdAt=7;
+    string updatedAt=8;
+}
+
+// nama pengguna, alamat ,kode pos, provinsi , kantor
+message CreateUserRequest {
+    string nama=1;
+    string alamat=2;
+    int64 kodePos=3;
+    string provinsi=4;
+    string kantor=5;
+}
+
+message UpdateUserRequest {
+    User user=1;
+}
+
+message ListUserResponse {
+    string message=1;
+    int64 code=2;
+    repeated User users=3;
+}
+
+message DeleteUserRequest {
+    string id=1;
+}
+
+message DeleteUserResponse {
+    string message=1;
+    int64 code=2;
+    string id=3;
+}
+
+message UserResponse {
+    string message=1;
+    int64 code=2;
+}
+
+service UserService {
+    rpc Create(CreateUserRequest) returns(UserResponse);
+    rpc Update(UpdateUserRequest) returns(UserResponse);
+    rpc List(google.protobuf.Empty) returns(ListUserResponse);
+    rpc Delete(DeleteUserRequest) returns(DeleteUserResponse);
+}

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package account;
+
+// set go_package to relative path of module
+option go_package="/proto/account";
+
+// nama akun, password, tanggal daftar
+message CreateAccountRequest {
+    string namaAccount =1;
+    string password= 2;
+}
+
+message UpdateAccountRequest {
+    string id=1;
+    string namaAccount=2;
+    string password= 3;
+}
+
+message Account {
+    string id=1;
+    string namaAccount=2;
+    string tanggalDaftar=3;
+}
+
+message ListAccountResponse {
+    repeated Account accounts= 1;
+}
+
+message DeleteAccountRequest {
+    string id=1;
+}
+
+message DeleteAccountResponse {
+    string id= 1;
+    string Message= 2;
+    string Code= 3;
+}
+
+message UpdateAccountResponse {
+    string id=1;
+    string Message=2;
+    string Code= 3;
+}
+
+message CreateAccountResponse {
+    string Message=1;
+    string Code= 2;
+}
+
+
+service AccountService {
+    rpc Create(CreateAccountRequest) returns(CreateAccountResponse);
+    rpc Update(UpdateAccountRequest) returns(UpdateAccountResponse);
+    rpc List(ListAccountResponse)   returns(ListAccountResponse);
+    rpc Delete(DeleteAccountRequest) returns(DeleteAccountResponse);
+}
